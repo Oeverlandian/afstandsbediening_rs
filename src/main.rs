@@ -101,8 +101,19 @@ fn main() -> ! {
 
 				display.clear(&mut timer).unwrap();
 				display.reset(&mut timer).unwrap();
-				
 				display.set_cursor_xy((0, 0), &mut timer).unwrap();
+
+				if str_data == "3000CFFF" {
+					display.write_str("Hello World", &mut timer).unwrap();
+				}
+				else if str_data == "PLACEHOLDER" {
+
+				}
+				else {
+					display.write_str("Unknown signal", &mut timer).unwrap();
+				}
+
+				display.set_cursor_xy((0, 1), &mut timer).unwrap();
 				display.write_str(str_data, &mut timer).unwrap();
             }
         }
