@@ -1,11 +1,13 @@
 #![no_std]
 #![no_main]
 
+// External Crates
 use cortex_m_rt::entry;
 use defmt::*;
 use defmt_rtt as _;
-use hd44780_driver::{memory_map::MemoryMap1602, setup::DisplayOptionsI2C, HD44780};
 use panic_probe as _;
+use embedded_hal::digital::InputPin;
+// BSP and HAL
 use rp_pico::{
     self as bsp,
     hal::{fugit::RateExtU32, Timer, I2C},
@@ -17,7 +19,8 @@ use bsp::hal::{
     sio::Sio,
     watchdog::Watchdog,
 };
-use embedded_hal::digital::InputPin;
+// HD44780 driver
+use hd44780_driver::{memory_map::MemoryMap1602, setup::DisplayOptionsI2C, HD44780};
 
 #[entry]
 fn main() -> ! {
@@ -71,7 +74,7 @@ fn main() -> ! {
 
             let pulse_duration = timer.get_counter_low() - start_time;
 
-            if pulse_duration >= 9000 && pulse_duration <= 10000 {
+            if pulse_duration >= 8500 && pulse_duration <= 11000 {
                 
                 let mut data = 0u32;
                 for _ in 0..32 {
@@ -103,7 +106,7 @@ fn main() -> ! {
 				display.reset(&mut timer).unwrap();
 				display.set_cursor_xy((0, 0), &mut timer).unwrap();
 
-				if str_data == "3000CFFF" {
+				if str_data == "3902BED2" {
 					display.write_str("Hello World", &mut timer).unwrap();
 				}
 				else if str_data == "PLACEHOLDER" {
