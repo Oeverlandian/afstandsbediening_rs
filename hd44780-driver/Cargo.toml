@@ -1,0 +1,23 @@
+[package]
+name = "hd44780-driver"
+version = "0.4.0"
+edition = "2021"
+keywords = ["no-std", "lcd", "embedded-hal-driver", "embedded-hal", "hd44780"]
+categories = ["embedded", "hardware-support", "no-std"]
+description = "A crate to use HD44780 compliant displays with embedded-hal"
+authors = ["John Doneth <doneth7@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/JohnDoneth/hd44780-driver"
+documentation = "https://docs.rs/hd44780-driver"
+readme = "README.md"
+
+[features]
+async = ["embedded-hal-async"]
+defmt = ["dep:defmt"]
+ufmt = ["dep:ufmt"]
+
+[dependencies]
+embedded-hal = { version = "1" }
+embedded-hal-async = { version = "1", optional = true }
+defmt = { version = "0.3", optional = true }
+ufmt = { version = "0.2", optional = true }
